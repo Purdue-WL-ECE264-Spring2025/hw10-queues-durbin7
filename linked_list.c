@@ -41,7 +41,7 @@ size_t remove_from_head(struct linked_list *list)
   struct list_node * toremove = list -> head;
 
   // Rewire around node to remove
-  list -> head -> next = list -> head -> next -> next;
+  list -> head= list -> head -> next;
   
   // Free removed node
   free(toremove);
