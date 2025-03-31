@@ -17,7 +17,23 @@ void insert_at_head(struct linked_list *list, size_t value)
   list -> head = toadd;
 }
 
-void insert_at_tail(struct linked_list *list, size_t value) {}
+void insert_at_tail(struct linked_list *list, size_t value) 
+{
+  // Make new node and add value
+  struct list_node * toadd = malloc(sizeof(struct list_node));
+  toadd -> value = value;
+
+  // Make new node's next point to NULL
+  toadd -> next = NULL;
+
+  // Change last node to point to new node
+  struct list_node * findend = list -> head;
+  while(findend -> next != NULL)
+  {
+    findend = findend -> next;
+  }
+  findend -> next = toadd;
+}
 
 size_t remove_from_head(struct linked_list *list) { return 0; }
 
