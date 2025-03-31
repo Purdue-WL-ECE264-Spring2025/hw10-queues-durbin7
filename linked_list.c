@@ -35,7 +35,18 @@ void insert_at_tail(struct linked_list *list, size_t value)
   findend -> next = toadd;
 }
 
-size_t remove_from_head(struct linked_list *list) { return 0; }
+size_t remove_from_head(struct linked_list *list) 
+{ 
+  // Make node to remove
+  struct list_node * toremove = list -> head;
+
+  // Rewire around node to remove
+  list -> head -> next = list -> head -> next -> next;
+  
+  // Free removed node
+  free(toremove);
+  return 0; 
+}
 
 size_t remove_from_tail(struct linked_list *list) { return 0; }
 
