@@ -4,7 +4,18 @@
 
 struct list_node *new_node(size_t value) { return NULL; }
 
-void insert_at_head(struct linked_list *list, size_t value) {}
+void insert_at_head(struct linked_list *list, size_t value) 
+{
+  // Make new node and add value
+  struct list_node * toadd = malloc(sizeof(struct list_node));
+  toadd -> value = value;
+
+  // Make new node's next point to beginning of list
+  toadd -> next = list -> head;
+
+  // Change list head to new node
+  list -> head = toadd;
+}
 
 void insert_at_tail(struct linked_list *list, size_t value) {}
 
