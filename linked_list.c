@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 
+// WRITE THIS??
 struct list_node *new_node(size_t value) { return NULL; }
 
 void insert_at_head(struct linked_list *list, size_t value) 
@@ -27,7 +28,7 @@ void insert_at_tail(struct linked_list *list, size_t value)
   toadd -> next = NULL;
 
   // Change last node to point to new node
-  struct list_node * findend = list -> head;
+  struct list_node * findend = list -> head; // OR just list?
   while(findend -> next != NULL)
   {
     findend = findend -> next;
@@ -38,33 +39,67 @@ void insert_at_tail(struct linked_list *list, size_t value)
 size_t remove_from_head(struct linked_list *list) 
 { 
   // Define node to remove
-  struct list_node * toremove = list -> head;
+  struct list_node * toremove = list -> head; // OR just list?
 
   // Rewire around node to remove
-  list -> head= list -> head -> next;
+  list -> head = list -> head -> next; // list instead of list -> head?
+
+  size_t rem_val = toremove -> value;
+
+  
   
   // Free removed node
   free(toremove);
-  return 0; 
+  return rem_val; 
 }
 
 size_t remove_from_tail(struct linked_list *list) 
 { 
-  // Find second to last node
+  // // Find second to last node
+  // struct list_node * findsec = list -> head;
+  // while(findsec -> next -> next != NULL)
+  // {
+  //   findsec = findsec -> next;
+  // }
+
+  // size_t rem_val = findsec -> next -> next -> value;
+
+  // // Free last + change second to last node to point to NULL
+  // free(findsec -> next -> next);
+  // findsec -> next = NULL;
+
+  // precondition: list is size 1 or more
   struct list_node * findsec = list -> head;
+  if(findsec -> next == NULL) // is my list size 1
+  {
+    // fixing mem leak?
+    size_t rem_val = findsec -> value;
+    free(findsec);
+
+    list -> head = NULL;
+    // TODO: fix memory leak
+    // return findsec -> value;
+    return rem_val;
+  }
   while(findsec -> next -> next != NULL)
   {
     findsec = findsec -> next;
   }
-
-  // Free last + change second to last node to point to NULL
+  size_t rem_val = findsec -> next -> value;
   free(findsec -> next);
-  findsec-> next = NULL;
+  findsec -> next = NULL;
 
-  return 0; 
+  return rem_val;
 }
 
-void free_list(struct linked_list list) {}
+void free_list(struct linked_list list) 
+{
+
+  while(list.head != NULL)
+  {
+    remove_from_head(&list);
+  }
+}
 
 // Utility function to help you debugging, do not modify
 void dump_list(FILE *fp, struct linked_list list) {
