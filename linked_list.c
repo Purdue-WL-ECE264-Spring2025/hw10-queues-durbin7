@@ -46,8 +46,6 @@ size_t remove_from_head(struct linked_list *list)
 
   size_t rem_val = toremove -> value;
 
-  
-  
   // Free removed node
   free(toremove);
   return rem_val; 
@@ -55,36 +53,21 @@ size_t remove_from_head(struct linked_list *list)
 
 size_t remove_from_tail(struct linked_list *list) 
 { 
-  // // Find second to last node
-  // struct list_node * findsec = list -> head;
-  // while(findsec -> next -> next != NULL)
-  // {
-  //   findsec = findsec -> next;
-  // }
-
-  // size_t rem_val = findsec -> next -> next -> value;
-
-  // // Free last + change second to last node to point to NULL
-  // free(findsec -> next -> next);
-  // findsec -> next = NULL;
-
   // precondition: list is size 1 or more
   struct list_node * findsec = list -> head;
   if(findsec -> next == NULL) // is my list size 1
   {
-    // fixing mem leak?
     size_t rem_val = findsec -> value;
     free(findsec);
-
     list -> head = NULL;
-    // TODO: fix memory leak
-    // return findsec -> value;
     return rem_val;
   }
+
   while(findsec -> next -> next != NULL)
   {
     findsec = findsec -> next;
   }
+  
   size_t rem_val = findsec -> next -> value;
   free(findsec -> next);
   findsec -> next = NULL;
